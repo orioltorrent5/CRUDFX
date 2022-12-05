@@ -16,6 +16,12 @@ public class Professor {
         this.cognom = "cognom";
     }
 
+    public Professor(String nom, String cognom, String id) {
+        this.nom = nom;
+        this.cognom = cognom;
+        this.id = id;
+    }
+
     //Getters Setters
 
     public String getNom() {

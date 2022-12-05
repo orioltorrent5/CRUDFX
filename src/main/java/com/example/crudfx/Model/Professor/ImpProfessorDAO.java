@@ -1,7 +1,10 @@
 package com.example.crudfx.Model.Professor;
 
+import com.example.crudfx.Model.Alumne.Alumne;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 import java.sql.*;
 
@@ -20,21 +23,26 @@ public class ImpProfessorDAO implements IProfessorDAO{
     }
     @Override
     public void afegirProfessor(Professor professor) {
-        try {
-            //Definim les variables
-            String nom = professor.getNom();
-            String cognoms = professor.getCognom();
+            try {
 
-            //Executem la sentencia
-            PreparedStatement pe = sqlConnect.prepareStatement("insert into professors(nom, cognoms) values(?,?)");
+                //Definim les variables
+                String nom = professor.getNom();
+                String cognoms = professor.getCognom();
 
-            //Per cada interrogant assignara el valor
-            pe.setString(1, nom);
-            pe.setString(2, cognoms);
-            pe.executeUpdate();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+                //Creem la sentencia SQL que utilitzarem
+                String sentenciaInsert = "insert into professors(nom, cognoms) values(?,?)";
+
+                //Executem la sentencia
+                PreparedStatement pe = sqlConnect.prepareStatement(sentenciaInsert);
+
+                //Per cada interrogant assignara el valor
+                pe.setString(1, nom);
+                pe.setString(2, cognoms);
+
+                pe.executeUpdate();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
     }
 
     @Override
@@ -56,7 +64,7 @@ public class ImpProfessorDAO implements IProfessorDAO{
     }
 
     @Override
-    public void updateProfessor(String nom, String cognoms, String id) {
+    public void updateProfessor(Professor professor, String id) {
         try {
             //Creem la sentencia SQL que utilitzarem
             String sentenciaUPDATE = "UPDATE professors SET nom = ?, cognoms = ? WHERE id = ?";
@@ -64,21 +72,16 @@ public class ImpProfessorDAO implements IProfessorDAO{
             //Executem la sentencia
             PreparedStatement preparedStatement = sqlConnect.prepareStatement(sentenciaUPDATE);
 
-
+            int idInt = Integer.parseInt(id);
             //Per cada interrogant assignara el valor
-            preparedStatement.setString(1, nom);
-            preparedStatement.setString(2, cognoms);
-            preparedStatement.setInt(3, Integer.parseInt(id));
+            preparedStatement.setString(1, professor.getNom());
+            preparedStatement.setString(2, professor.getCognom());
+            preparedStatement.setInt(3, idInt);
 
-            System.out.println();
-            System.out.println("--VALORS NOUS INTRODUITS--");
-            System.out.println("ID ↣ " + id);
-            System.out.println("Nom ↣ " + nom);
-            System.out.println("Cognoms ↣ " + cognoms);
 
             preparedStatement.executeUpdate();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -110,5 +113,44 @@ public class ImpProfessorDAO implements IProfessorDAO{
             System.out.println(e.getMessage());
         }
         return listView;
+    }
+
+    @Override
+    public Professor buscarProfessor(String idAlumne) {
+        Professor professor = new Professor();
+        try {
+            //Variables
+            String nom, cognoms;
+            Boolean existeixID = false;
+
+            //Creem la sentencia SQL que utilitzarem
+            String sentenciaRead = "SELECT *  FROM professors";
+
+            //Executem la sentencia
+            Statement statement = sqlConnect.createStatement();
+            ResultSet rs = statement.executeQuery(sentenciaRead);
+
+            while (rs.next()){
+                if (rs.getString("id").equals(idAlumne)){
+
+                    professor.setId(rs.getString("id"));
+                    professor.setNom(rs.getString("nom"));
+                    professor.setCognom(rs.getString("cognoms"));
+
+                    existeixID = true;
+                }
+            }
+
+            if (!existeixID){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "l'id introduit no es correcta", ButtonType.CLOSE);
+                alert.setHeaderText("      ID INVALID!!");
+                alert.show();
+            }
+
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return professor;
     }
 }

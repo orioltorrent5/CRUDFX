@@ -1,6 +1,6 @@
 package com.example.crudfx.Controllers;
 
-import com.example.crudfx.Efects.Metodes;
+import com.example.crudfx.Efects.*;
 import com.example.crudfx.Model.Alumne.Alumne;
 import com.example.crudfx.Model.Alumne.ImpAlumneDAO;
 import javafx.beans.property.ObjectProperty;
@@ -177,7 +177,7 @@ public class AlumneController implements Initializable {
 
         try {
             if (objAlumne.get()==null){
-                Metodes.errorAnimacio(taulaAlumnes);
+                Metodes.errorAnimacioAlumne(taulaAlumnes);
                 return;
             }
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "VOLS ELIMINAR AQUEST REGISTRE?!", ButtonType.YES, ButtonType.NO);
