@@ -12,5 +12,7 @@ module com.example.crudfx {
     opens com.example.crudfx.Model.Alumne to javafx.fxml;
     exports com.example.crudfx.Model.Professor;
     opens com.example.crudfx.Model.Professor to javafx.fxml;
+    exports com.example.crudfx.Model.Modul;
+    opens com.example.crudfx.Model.Modul to javafx.fxml;
     //opens com.example.crudfx.Model.Professor to javafx.fxml;
 }

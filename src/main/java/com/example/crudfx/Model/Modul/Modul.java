@@ -2,29 +2,29 @@ package com.example.crudfx.Model.Modul;
 
 public class Modul {
     //Variables
-    private int id;
+    private String id;
     private String nom;
-    private int idProfessor;
+    private String idProfessor;
 
     //Constructors
-    public Modul(String nom, int idProfessor){
+    public Modul(String nom, String idProfessor){
         this.nom = nom;
         this.idProfessor = idProfessor;
     }
 
     public Modul(){
-        this.id = 0;
+        this.id = "0";
         this.nom = "null";
-        this.idProfessor = 0;
+        this.idProfessor = "0";
     }
 
     //Getters i Setters
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -36,11 +36,11 @@ public class Modul {
         this.nom = nom;
     }
 
-    public int getIdProfessor() {
+    public String getIdProfessor() {
         return idProfessor;
     }
 
-    public void setIdProfessor(int idProfessor) {
+    public void setIdProfessor(String idProfessor) {
         this.idProfessor = idProfessor;
     }
 

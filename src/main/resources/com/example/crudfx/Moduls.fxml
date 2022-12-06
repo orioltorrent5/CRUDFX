@@ -1,6 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" />
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.crudfx.Controllers.ModulController">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1000.0" style="-fx-background-color: #862121;">
+         <children>
+            <GridPane layoutX="80.0" layoutY="77.0" prefHeight="236.0" prefWidth="857.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <TextField fx:id="idModul" promptText="ID" GridPane.columnIndex="1" />
+                  <Button fx:id="btnInsertar" alignment="CENTER" mnemonicParsing="false" onAction="#insertarModul" prefHeight="25.0" prefWidth="213.0" style="-fx-background-color: #2ae305;" text="INSERTAR" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Lucida Fax Regular" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnEliminar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#eliminarModul" prefHeight="28.0" prefWidth="208.0" style="-fx-background-color: e50a0a;" text="ELIMINAR" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Lucida Fax Demibold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnModificar" alignment="CENTER" mnemonicParsing="false" onAction="#updateModul" prefHeight="28.0" prefWidth="208.0" style="-fx-background-color: #0574e3;" text="MODIFICAR" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Lucida Fax Demibold Italic" size="14.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="nomModul" promptText="Nom Modul" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#buscarModul" text="Seleccionar" GridPane.columnIndex="2" />
+                  <TextField fx:id="idProfessor" promptText="ID Professor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+            <TableView fx:id="taulaModuls" layoutX="80.0" layoutY="313.0" prefHeight="249.0" prefWidth="857.0">
+               <columns>
+                  <TableColumn fx:id="idModulC" prefWidth="75.0" text="id" />
+                  <TableColumn fx:id="nomModulC" prefWidth="94.0" text="Nom" />
+                  <TableColumn fx:id="idProfModulC" prefWidth="118.0" text="ID Professor" />
+               </columns>
+            </TableView>
+            <Button fx:id="btnHome" layoutX="80.0" layoutY="564.0" mnemonicParsing="false" onAction="#backMenu" text="BACK TO MENU" />
+            <Label layoutX="411.0" layoutY="14.0" text="MODULS" textFill="WHITE">
+               <font>
+                  <Font name="Franklin Gothic Demi" size="50.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

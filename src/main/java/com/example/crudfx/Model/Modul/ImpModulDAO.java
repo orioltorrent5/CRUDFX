@@ -1,5 +1,11 @@
 package com.example.crudfx.Model.Modul;
 
+import com.example.crudfx.Model.Professor.Professor;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
 import java.sql.*;
 
 public class ImpModulDAO implements IModulDAO{
@@ -21,7 +27,7 @@ public class ImpModulDAO implements IModulDAO{
         try {
             //Definim les variables
             String nom = modul.getNom();
-            int idProfessor = modul.getIdProfessor();
+            String idProfessor = modul.getIdProfessor();
 
             //Creem la sentencia SQL que utilitzarem
             String insert = "insert into moduls(nom, id_professor) values(?,?)";
@@ -31,7 +37,7 @@ public class ImpModulDAO implements IModulDAO{
 
             //Per cada interrogant assignara el valor
             pe.setString(1, nom);
-            pe.setInt(2, idProfessor);
+            pe.setInt(2, Integer.parseInt(idProfessor));
 
             pe.executeUpdate();
         }catch (Exception e){
@@ -41,20 +47,24 @@ public class ImpModulDAO implements IModulDAO{
 
     @Override
     public void deleteModul(String id) throws SQLException {
-        //Creem la sentencia SQL que utilitzarem
-        String sentenciaDELETE = "DELETE FROM moduls WHERE id = ?";
+        try {
+            //Creem la sentencia SQL que utilitzarem
+            String sentenciaDELETE = "DELETE FROM moduls WHERE id = ?";
 
-        //Executem la sentencia
-        PreparedStatement preparedStatement = sqlConnect.prepareStatement(sentenciaDELETE);
+            //Executem la sentencia
+            PreparedStatement preparedStatement = sqlConnect.prepareStatement(sentenciaDELETE);
 
-        //Per cada interrogant assignara el valor
-        preparedStatement.setInt(1, Integer.parseInt(id));
+            //Per cada interrogant assignara el valor
+            preparedStatement.setInt(1, Integer.parseInt(id));
 
-        preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void updateModul(String nom, int idProfessor, String id) {
+    public void updateModul(Modul modul, String id) {
         try {
             //Creem la sentencia SQL que utilitzarem
             String sentenciaUPDATE = "UPDATE moduls SET nom = ?, id_professor = ? WHERE id = ?";
@@ -63,8 +73,8 @@ public class ImpModulDAO implements IModulDAO{
             PreparedStatement preparedStatement = sqlConnect.prepareStatement(sentenciaUPDATE);
 
             //Per cada interrogant assignara el valor
-            preparedStatement.setString(1, nom);
-            preparedStatement.setInt(2, idProfessor);
+            preparedStatement.setString(1, modul.getNom());
+            preparedStatement.setInt(2, Integer.parseInt(modul.getIdProfessor()));
             preparedStatement.setInt(3, Integer.parseInt(id));
 
             preparedStatement.executeUpdate();
@@ -74,38 +84,69 @@ public class ImpModulDAO implements IModulDAO{
     }
 
     @Override
-    public void llistarModuls() {
-        try{
-            String id ,nom_modul, nom, cognoms;
-            int i = 1;
+    public Modul buscarModul(String id) {
+        Modul modul = new Modul();
+        try {
+            //Variables
+            String nom, idProfessor;
+            Boolean existeixID = false;
 
             //Creem la sentencia SQL que utilitzarem
-            String sentenciaREAD = "SELECT m.id, m.nom AS nom_modul, p.nom, p.cognoms  FROM moduls m INNER JOIN professors p ON  m.id_professor = p.id";
+            String sentenciaRead = "SELECT *  FROM moduls m";
 
             //Executem la sentencia
             Statement statement = sqlConnect.createStatement();
-            ResultSet rs = statement.executeQuery(sentenciaREAD);
+            ResultSet rs = statement.executeQuery(sentenciaRead);
 
-            System.out.println("---LLISTA PROFESSORS---");
-            while (rs.next()) {
-                id = rs.getString("id");
-                nom = rs.getString("nom");
-                cognoms = rs.getString("cognoms");
-                nom_modul = rs.getString("nom_modul");
+            while (rs.next()){
+                if (rs.getString("id").equals(id)){
 
+                    modul.setNom(rs.getString("nom"));
+                    modul.setIdProfessor(rs.getString("id_professor"));
 
-                System.out.println();
-                System.out.println("Modul " + i + ": ");
-                System.out.println("ID → " + id);
-                System.out.println("Módul → " + nom_modul);
-                System.out.println("Nom Professor → " + nom);
-                System.out.println("Cognoms Professor → " + cognoms);
-                System.out.println();
-
-                i++;
+                    existeixID = true;
+                }
             }
-        }catch (Exception e){
+
+            if (!existeixID){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "l'id introduit no es correcta", ButtonType.CLOSE);
+                alert.setHeaderText("      ID INVALID!!");
+                alert.show();
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return modul;
+    }
+
+    @Override
+    public ObservableList<Modul> llistarModuls() {
+        ObservableList<Modul> listView = FXCollections.observableArrayList();
+        try {
+            //Variables
+            String id, nom, idprofessor;
+
+            //Creem la sentencia SQL que utilitzarem
+            String sentenciaRead = "select * from moduls m ";
+
+            //Executem la sentencia
+            Statement statement = sqlConnect.createStatement();
+            ResultSet rs = statement.executeQuery(sentenciaRead);
+
+            while (rs.next()) {
+                Modul modul = new Modul();
+
+                modul.setId(rs.getString("id"));
+                modul.setNom(rs.getString("nom"));
+                modul.setIdProfessor(rs.getString("id_professor"));
+
+                listView.add(modul);
+            }
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        return listView;
     }
 }

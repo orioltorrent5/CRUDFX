@@ -1,8 +1,6 @@
 package com.example.crudfx.Controllers;
 
 import com.example.crudfx.Efects.*;
-import com.example.crudfx.Model.Alumne.Alumne;
-import com.example.crudfx.Model.Alumne.ImpAlumneDAO;
 import com.example.crudfx.Model.Professor.ImpProfessorDAO;
 import com.example.crudfx.Model.Professor.Professor;
 import javafx.beans.property.ObjectProperty;
@@ -22,7 +20,6 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -64,6 +61,9 @@ public class ProfessorController implements Initializable {
     @FXML
     private TableView<Professor> taulaProfessor;
 
+    /**
+     * Et permet tornar al menu d'inici
+     */
     private Stage stage;
     private Scene scene;
     @FXML
@@ -79,6 +79,9 @@ public class ProfessorController implements Initializable {
         }
     }
 
+    /**
+     * Et permet buscar un professor "seleccionar" per aixi poder-lo modificar amb més facilitat
+     */
     @FXML
     void buscarProfessor(ActionEvent event) throws SQLException {
         Professor professor;
@@ -96,6 +99,9 @@ public class ProfessorController implements Initializable {
         }
     }
 
+    /**
+     * Et permet eliminar un professor
+     */
     @FXML
     void eliminarProfessor(ActionEvent event) {
         try {
@@ -116,6 +122,9 @@ public class ProfessorController implements Initializable {
         llistarProfessors();
     }
 
+    /**
+     * Et permet insertar un professor nou a la BD
+     */
     @FXML
     void insertarProfessor(ActionEvent event) {
         if (!nomProfessorC.getText().equals("") && !cognomsProfessorC.getText().equals("")){
@@ -137,6 +146,9 @@ public class ProfessorController implements Initializable {
 
     }
 
+    /**
+     * Et permet actualiztar un professor
+     */
     @FXML
     void updateProfessor(ActionEvent event) throws SQLException {
         ImpProfessorDAO professorDAO = new ImpProfessorDAO();

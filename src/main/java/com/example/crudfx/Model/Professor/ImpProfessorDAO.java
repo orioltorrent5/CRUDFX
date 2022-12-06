@@ -116,7 +116,7 @@ public class ImpProfessorDAO implements IProfessorDAO{
     }
 
     @Override
-    public Professor buscarProfessor(String idAlumne) {
+    public Professor buscarProfessor(String id) {
         Professor professor = new Professor();
         try {
             //Variables
@@ -131,7 +131,7 @@ public class ImpProfessorDAO implements IProfessorDAO{
             ResultSet rs = statement.executeQuery(sentenciaRead);
 
             while (rs.next()){
-                if (rs.getString("id").equals(idAlumne)){
+                if (rs.getString("id").equals(id)){
 
                     professor.setId(rs.getString("id"));
                     professor.setNom(rs.getString("nom"));
@@ -149,7 +149,7 @@ public class ImpProfessorDAO implements IProfessorDAO{
 
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return professor;
     }
