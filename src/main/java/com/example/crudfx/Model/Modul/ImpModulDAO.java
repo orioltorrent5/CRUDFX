@@ -126,10 +126,10 @@ public class ImpModulDAO implements IModulDAO{
         ObservableList<Modul> listView = FXCollections.observableArrayList();
         try {
             //Variables
-            String id, nom, idprofessor;
+            String id, nom, idprofessor, nomprofessor;
 
             //Creem la sentencia SQL que utilitzarem
-            String sentenciaRead = "select * from moduls m ";
+            String sentenciaRead = "select moduls.id, moduls.nom, moduls.id_professor, professors.nom AS nomprofessor from moduls INNER JOIN professors ON moduls.id_professor = professors.id";
 
             //Executem la sentencia
             Statement statement = sqlConnect.createStatement();
@@ -141,6 +141,7 @@ public class ImpModulDAO implements IModulDAO{
                 modul.setId(rs.getString("id"));
                 modul.setNom(rs.getString("nom"));
                 modul.setIdProfessor(rs.getString("id_professor"));
+                modul.setNomProfessor(rs.getString("nomprofessor"));
 
                 listView.add(modul);
             }

@@ -5,6 +5,7 @@ public class Modul {
     private String id;
     private String nom;
     private String idProfessor;
+    private String nomProfessor;
 
     //Constructors
     public Modul(String nom, String idProfessor){
@@ -16,6 +17,7 @@ public class Modul {
         this.id = "0";
         this.nom = "null";
         this.idProfessor = "0";
+        this.nomProfessor = "";
     }
 
     //Getters i Setters
@@ -44,4 +46,11 @@ public class Modul {
         this.idProfessor = idProfessor;
     }
 
+    public String getNomProfessor() {
+        return nomProfessor;
+    }
+
+    public void setNomProfessor(String nomProfessor) {
+        this.nomProfessor = nomProfessor;
+    }
 }

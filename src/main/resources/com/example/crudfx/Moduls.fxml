@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.crudfx.Controllers.ModulController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1001.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.crudfx.Controllers.ModulController">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1000.0" style="-fx-background-color: #862121;">
          <children>
@@ -56,6 +56,7 @@
                   <TableColumn fx:id="idModulC" prefWidth="75.0" text="id" />
                   <TableColumn fx:id="nomModulC" prefWidth="94.0" text="Nom" />
                   <TableColumn fx:id="idProfModulC" prefWidth="118.0" text="ID Professor" />
+                  <TableColumn fx:id="nomProfessorModulC" prefWidth="118.0" text="Nom Professor" />
                </columns>
             </TableView>
             <Button fx:id="btnHome" layoutX="80.0" layoutY="564.0" mnemonicParsing="false" onAction="#backMenu" text="BACK TO MENU" />

@@ -17,7 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.sql.SQLException;
@@ -232,13 +231,18 @@ public class AlumneController implements Initializable {
 
            progenitor1 = alumne.getProgenitors().split(",")[0];
 
-           if (alumne.getProgenitors().contains(",")) {
-               progenitor2 = alumne.getProgenitors().split(",")[1];
-               progenitor1 = progenitor1.substring(1);
-               progenitor2 = progenitor2.substring(0,progenitor2.length()-1);
-           }else {
-               progenitor1 = progenitor1.substring(1, progenitor1.length()-1);
+           if (alumne.getProgenitors().isBlank()){
+               progenitor1 = "-vacio-";
                progenitor2 = "-vacio-";
+           }else {
+               if (alumne.getProgenitors().contains(",")) {
+                   progenitor2 = alumne.getProgenitors().split(",")[1];
+                   progenitor1 = progenitor1.substring(1);
+                   progenitor2 = progenitor2.substring(0,progenitor2.length()-1);
+               }else {
+                   progenitor1 = progenitor1.substring(1, progenitor1.length()-1);
+                   progenitor2 = "-vacio-";
+               }
            }
            progenitorsAlumne1.setText(progenitor1);
            progenitorsAlumne2.setText(progenitor2);

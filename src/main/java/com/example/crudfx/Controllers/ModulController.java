@@ -2,9 +2,7 @@ package com.example.crudfx.Controllers;
 
 import com.example.crudfx.Model.Modul.ImpModulDAO;
 import com.example.crudfx.Model.Modul.Modul;
-import com.example.crudfx.Model.Professor.ImpProfessorDAO;
 import com.example.crudfx.Efects.*;
-import com.example.crudfx.Model.Professor.Professor;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -57,10 +55,16 @@ public class ModulController implements Initializable {
     private TextField nomModul;
 
     @FXML
+    private TextField nomProfessor;
+
+    @FXML
     private TableColumn<Modul, String> nomModulC;
 
     @FXML
     private TableView<Modul> taulaModuls;
+
+    @FXML
+    private TableColumn<Modul, String> nomProfessorModulC;
 
 
     /**
@@ -181,6 +185,7 @@ public class ModulController implements Initializable {
             idModulC.setCellValueFactory(new PropertyValueFactory<>("id"));
             nomModulC.setCellValueFactory(new PropertyValueFactory<>("nom"));
             idProfModulC.setCellValueFactory(new PropertyValueFactory<>("idProfessor"));
+            nomProfessorModulC.setCellValueFactory(new PropertyValueFactory<>("nomProfessor"));
 
             objModul.bind(taulaModuls.getSelectionModel().selectedItemProperty());
 
